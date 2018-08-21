@@ -6,88 +6,76 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/21 11:03:01 by dabeloos          #+#    #+#             */
-/*   Updated: 2018/08/21 16:02:32 by dabeloos         ###   ########.fr       */
+/*   Updated: 2018/08/21 18:27:16 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
-#include <stdio.h>
 
-int		ft_sizeof_array(char *str)
+int		ft_count_elems(char *str)
 {
-	int	l;
+	int	n;
 	int	i;
 	int	check;
 
-	l = 0;
+	n = 0;
 	i = 0;
 	check = 0;
 	while (str[i] != '\0')
 	{
-		if (str[i] != ' ' && str[i] != '\t' && str[i] != '\n')
-		{
-			l++;
-			if (!check)
-				check++;
-		}
+		if (str[i] != ' ' && str[i] != '\t' && str[i] != '\n' && !check)
+			check++;
 		else if (check)
 		{
-			l++;
+			n++;
 			check--;
 		}
 		i++;
 	}
-	return (l);
+	if (check)
+		n++;
+	return (n);
+}
+
+void	ft_init_var(int var[3], size_t *l)
+{
+	var[0] = 0;
+	var[1] = 0;
+	var[2] = 0;
+	*l = 0;
+}
+
+char	**ft_add_null(char **result, int size)
+{
+	result[size] = NULL;
+	return (result);
 }
 
 char	**ft_split_whitespaces(char *str)
 {
-	int	l;
-	char **result;
-	int	i_r;
-	int	i_s;
-	int	i_sub;
+	size_t	l;
+	char	**result;
+	int		var[3];
 
-	result = malloc(sizeof(char*));
-	*result = malloc(ft_sizeof_array(str));
-	i_s = 0;
-	l = 0;
-	i_r = 0;
-	while (str[i_s] != '\0')
+	result = malloc(sizeof(char*) * (ft_count_elems(str) + 1));
+	ft_init_var(var, &l);
+	while (1)
 	{
-		if (str[i_s] != ' ' && str[i_s] != '\t' && str[i_s] != '\n')
-			l++;
+		if (str[var[1]] != ' ' && str[var[1]] != '\t' && str[var[1]] != '\n' &&
+				str[var[1]] != '\0')
+			l += sizeof(char);
 		else if (l > 0)
-		{	
-			i_sub = 0;
-			i_s = i_s - l;
-			while (i_sub < l)
-			{
-				(*result)[i_r][i_sub] = str[i_s];
-				i_sub++;
-				i_s++;
-			}
-			(*result)[i_r][i_sub] = '\0';
-			i_r++;
+		{
+			result[var[0]] = malloc(l + 1);
+			var[2] = 0;
+			var[1] = var[1] - l;
+			while (var[2] < (int)(l / sizeof(char)))
+				result[var[0]][var[2]++] = str[var[1]++];
+			result[var[0]++][var[2]] = '\0';
 			l = 0;
 		}
-		i_s++;
+		if (str[var[1]++] == '\0')
+			break ;
 	}
-	return (result);
-}
-
-int		main(int argc, char *argv[])
-{
-	char **result;
-	int i;
-
-	result = NULL;
-	if (argc == 2)
-	{
-		result = ft_split_whitespaces(argv[1]);
-		i = -1;
-		while (++i < 4)
-			printf("%s", (*result)[i]);
-	}
-	return (0);
+	return (ft_add_null(result, var[0]));
 }
