@@ -6,12 +6,12 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/21 08:55:26 by dabeloos          #+#    #+#             */
-/*   Updated: 2018/08/21 10:19:40 by dabeloos         ###   ########.fr       */
+/*   Updated: 2018/08/22 14:51:34 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
-
+#include <stdio.h>
 int		ft_ultimate_range(int **range, int min, int max)
 {
 	int	i;
@@ -22,12 +22,12 @@ int		ft_ultimate_range(int **range, int min, int max)
 	if (range == NULL)
 		return (0);
 	i = 0;
-	while ((long)i < (long)max - (long)min)
+	while (i < (long)max - (long)min)
 	{
 		(*range)[i] = (int)(i + (long)min);
 		i++;
 		if (i < 0)
 			return (0);
 	}
-	return ((int)i);
+	return (i);
 }
