@@ -6,12 +6,11 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/23 10:00:34 by dabeloos          #+#    #+#             */
-/*   Updated: 2018/08/23 12:10:41 by dabeloos         ###   ########.fr       */
+/*   Updated: 2018/08/23 14:38:34 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
-#include <stdio.h>
 
 int		ft_count_elems(char *str)
 {
