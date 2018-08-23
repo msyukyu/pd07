@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/22 16:51:57 by dabeloos          #+#    #+#             */
-/*   Updated: 2018/08/23 17:32:30 by dabeloos         ###   ########.fr       */
+/*   Updated: 2018/08/23 20:07:57 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,11 @@ void	ft_recursive_print_digit(int nbr, char *base, char **result, int index)
 
 	useless = malloc(sizeof(char*));
 	size = ft_check_base(base, useless);
+	if (size == 0)
+	{
+		*result = NULL;
+		return ;
+	}
 	sign = 1;
 	if (nbr < 0)
 		sign = -1;
@@ -113,7 +118,7 @@ char	*ft_convert_base(char *nbr, char *base_from, char *base_to)
 
 	result = malloc(sizeof(char*));
 	var[2] = ft_check_base(base_from, result);
-	if (var[2] < 0)
+	if (var[2] == 0)
 		return (NULL);
 	atoi = ft_atoi_base(nbr, base_from, var[2]);
 	ft_recursive_print_digit(atoi, base_to, result, 33);
