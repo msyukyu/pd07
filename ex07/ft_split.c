@@ -100,7 +100,6 @@ int		ft_count_words(char *str, char *charset)
 
 char	**ft_split(char *str, char *charset)
 {
-	char	*dest;
 	char	*trash;
 	int		length;
 	char	**result;
@@ -110,40 +109,19 @@ char	**ft_split(char *str, char *charset)
 	count = ft_count_words(str, charset) + 1;
 	result = malloc(sizeof(char*) * (count));
 	i = 0;
-	dest = malloc(sizeof(char) * (1 + ft_strlen(str)));
-	dest = ft_strncpy(dest, str, 1 + ft_strlen(str));
-	while (i < count)
+	while (i < count - 1)
 	{
-		trash = ft_strstr(dest, charset);
-		length = trash - dest;
+		trash = ft_strstr(str, charset);
+		length = (trash == (void*)0) ? ft_strlen(str) : trash - str;
 		if (length > 0)
 		{
 			result[i] = malloc(sizeof(char) * (length + 1));
-			result[i] = ft_strncpy(result[i], dest, length);
+			result[i] = ft_strncpy(result[i], str, length);
 			result[i][length] = '\0';
-			dest += length;
+			i++;
 		}
-		i++;
-		dest++;
+		str += length + ft_strlen(charset);
 	}
 	result[i] = NULL;
 	return (result);
-}
-#include <stdio.h>
-int		main(int argc, char *argv[])
-{
-	char **result;
-	int i;
-
-	if (argc == 3)
-	{
-		result = ft_split(argv[1], argv[2]);
-		i = 0;
-		while (result[i] != NULL)
-		{
-			printf("%s", result[i]);
-			i++;
-		}
-	}
-	return (0);
 }
