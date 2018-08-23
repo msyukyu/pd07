@@ -110,10 +110,10 @@ char	**ft_split(char *str, char *charset)
 	count = ft_count_words(str, charset) + 1;
 	result = malloc(sizeof(char*) * (count));
 	i = 0;
+	dest = malloc(sizeof(char) * (1 + ft_strlen(str)));
+	dest = ft_strncpy(dest, str, 1 + ft_strlen(str));
 	while (i < count)
 	{
-		dest = malloc(sizeof(char) * (1 + ft_strlen(str)));
-		dest = ft_strncpy(dest, str, 1 + ft_strlen(str));
 		trash = ft_strstr(dest, charset);
 		length = trash - dest;
 		if (length > 0)
