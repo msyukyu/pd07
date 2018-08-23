@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/23 17:59:42 by dabeloos          #+#    #+#             */
-/*   Updated: 2018/08/23 20:56:35 by dabeloos         ###   ########.fr       */
+/*   Updated: 2018/08/23 21:02:29 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,16 +118,16 @@ char	**ft_split(char *str, char *charset)
 		length = trash - dest;
 		if (length > 0)
 		{
-			(*result)[i] = malloc(length + 1);
-			(*result)[i] = strncpy((*result)[i], dest, length);
-			(*result)[i][length] = '\0';
+			result[i] = malloc(sizeof(char) * (length + 1));
+			result[i] = ft_strncpy(result[i], dest, length);
+			result[i][length] = '\0';
 			dest += length;
 		}
 		i++;
 		dest++;
 	}
-	(*result)[i] = NULL;
-	return (*result);
+	result[i] = NULL;
+	return (result);
 }
 #include <stdio.h>
 int		main(int argc, char *argv[])
@@ -139,9 +139,9 @@ int		main(int argc, char *argv[])
 	{
 		result = ft_split(argv[1], argv[2]);
 		i = 0;
-		while ((*result)[i] != NULL)
+		while (result[i] != NULL)
 		{
-			printf("%d", (*result)[i]);
+			printf("%s", result[i]);
 			i++;
 		}
 	}
