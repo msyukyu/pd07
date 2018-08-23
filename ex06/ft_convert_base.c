@@ -9,7 +9,8 @@
 /*   Updated: 2018/08/22 18:01:39 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
+#include <stdio.h>
+#include <stdlib.h>
 int		ft_check_base(char *base)
 {
 	int i;
@@ -61,7 +62,7 @@ int		ft_atoi_base(char *str, char *base, int size)
 	i = -1;
 	base_value = -1;
 	while (base[++i] != '\0' && base_value == -1)
-		if (base[i - 1] == str[var_i])
+		if (base[i] == str[var_i])
 			base_value = i;
 	while (base_value != -1 && ++var_i > -1)
 	{
@@ -69,7 +70,7 @@ int		ft_atoi_base(char *str, char *base, int size)
 		base_value = -1;
 		i = -1;
 		while (base[++i] != '\0' && base_value == -1)
-			if (base[i - 1] == str[var_i])
+			if (base[i] == str[var_i])
 				base_value = i;
 	}
 	return ((base_value == -1 && !(str[var_i] == '\0') && str[var_i] != '-' &&
@@ -107,15 +108,17 @@ char	*ft_putnbr_base(char *nbr, char *base_from, char *base_to)
 
 	size = ft_check_base(base_from);
 	if (size < 0)
-		return ;
+		return NULL;
 	atoi = ft_atoi_base(nbr, base_from, size);
 	result = malloc(sizeof(char*));
 	*result = malloc(sizeof(char) * 34);
 	i = -1;
 	while (++i < 34)
-		result[i] = '\0';
+		(*result)[i] = '\0';
 	ft_recursive_print_digit(atoi, base_to, result, 32);
-	i = 0;
+	i = -1;
+	if ((*result)[0] == '-')
+		i++;
 	j = -1;
 	while (++i < 34)
 	{
@@ -127,5 +130,18 @@ char	*ft_putnbr_base(char *nbr, char *base_from, char *base_to)
 			(*result)[i] = '\0';
 		}
 	}
-	return (result);
+	return (*result);
+}
+
+int		main(int argc, char *argv[])
+{
+	int	size;
+
+	if (argc == 4)
+	{
+//		size = ft_check_base(argv[2]);
+//		printf("%d", ft_atoi_base(argv[1], argv[2], size));
+		printf("%s", ft_putnbr_base(argv[1], argv[2], argv[3]));
+	}
+	return (0);
 }
