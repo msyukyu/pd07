@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/22 16:51:57 by dabeloos          #+#    #+#             */
-/*   Updated: 2018/08/23 09:57:05 by dabeloos         ###   ########.fr       */
+/*   Updated: 2018/08/23 15:27:14 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ void	ft_recursive_print_digit(int nbr, char *base, char **result, int index)
 	(*result)[index] = base[(nbr % size) * sign];
 }
 
-char	*ft_putnbr_base(char *nbr, char *base_from, char *base_to)
+char	*ft_convert_base(char *nbr, char *base_from, char *base_to)
 {
 	int		var[3];
 	char	**result;
