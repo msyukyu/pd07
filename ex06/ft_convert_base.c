@@ -6,16 +6,21 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/22 16:51:57 by dabeloos          #+#    #+#             */
-/*   Updated: 2018/08/22 18:01:39 by dabeloos         ###   ########.fr       */
+/*   Updated: 2018/08/23 09:57:05 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <stdio.h>
+
 #include <stdlib.h>
-int		ft_check_base(char *base)
+
+int		ft_check_base(char *base, char **result)
 {
 	int i;
 	int j;
 
+	*result = malloc(sizeof(char) * 35);
+	i = -1;
+	while (++i < 35)
+		(*result)[i] = '\0';
 	i = 0;
 	while (base[i] != '\0')
 	{
@@ -79,11 +84,13 @@ int		ft_atoi_base(char *str, char *base, int size)
 
 void	ft_recursive_print_digit(int nbr, char *base, char **result, int index)
 {
-	int	sign;
-	int	size;
+	int		sign;
+	int		size;
+	char	**useless;
 
+	useless = malloc(sizeof(char*));
+	size = ft_check_base(base, useless);
 	sign = 1;
-	size = ft_check_base(base);
 	if (nbr < 0)
 		sign = -1;
 	if (nbr < size && nbr > -size)
@@ -100,48 +107,29 @@ void	ft_recursive_print_digit(int nbr, char *base, char **result, int index)
 
 char	*ft_putnbr_base(char *nbr, char *base_from, char *base_to)
 {
-	int		size;
+	int		var[3];
 	char	**result;
 	int		atoi;
-	int		i;
-	int		j;
 
-	size = ft_check_base(base_from);
-	if (size < 0)
-		return NULL;
-	atoi = ft_atoi_base(nbr, base_from, size);
 	result = malloc(sizeof(char*));
-	*result = malloc(sizeof(char) * 34);
-	i = -1;
-	while (++i < 34)
-		(*result)[i] = '\0';
-	ft_recursive_print_digit(atoi, base_to, result, 32);
-	i = -1;
+	var[2] = ft_check_base(base_from, result);
+	if (var[2] < 0)
+		return (NULL);
+	atoi = ft_atoi_base(nbr, base_from, var[2]);
+	ft_recursive_print_digit(atoi, base_to, result, 33);
+	var[0] = -1;
 	if ((*result)[0] == '-')
-		i++;
-	j = -1;
-	while (++i < 34)
+		var[0]++;
+	var[1] = -1;
+	while (++var[0] < 35)
 	{
-		if ((*result)[i] == '\0' && j == -1)
-			j = i;
-		else if ((*result)[i] != '\0')
+		if ((*result)[var[0]] == '\0' && var[1] == -1)
+			var[1] = var[0];
+		else if ((*result)[var[0]] != '\0')
 		{
-			(*result)[j++] = (*result)[i];
-			(*result)[i] = '\0';
+			(*result)[var[1]++] = (*result)[var[0]];
+			(*result)[var[0]] = '\0';
 		}
 	}
 	return (*result);
-}
-
-int		main(int argc, char *argv[])
-{
-	int	size;
-
-	if (argc == 4)
-	{
-//		size = ft_check_base(argv[2]);
-//		printf("%d", ft_atoi_base(argv[1], argv[2], size));
-		printf("%s", ft_putnbr_base(argv[1], argv[2], argv[3]));
-	}
-	return (0);
 }
