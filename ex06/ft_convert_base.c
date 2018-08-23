@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/22 16:51:57 by dabeloos          #+#    #+#             */
-/*   Updated: 2018/08/23 20:07:57 by dabeloos         ###   ########.fr       */
+/*   Updated: 2018/08/23 20:13:30 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,10 +123,10 @@ char	*ft_convert_base(char *nbr, char *base_from, char *base_to)
 	atoi = ft_atoi_base(nbr, base_from, var[2]);
 	ft_recursive_print_digit(atoi, base_to, result, 33);
 	var[0] = -1;
-	if ((*result)[0] == '-')
+	if (*result != NULL && (*result)[0] == '-')
 		var[0]++;
 	var[1] = -1;
-	while (++var[0] < 35)
+	while (*result != NULL && ++var[0] < 35)
 	{
 		if ((*result)[var[0]] == '\0' && var[1] == -1)
 			var[1] = var[0];
