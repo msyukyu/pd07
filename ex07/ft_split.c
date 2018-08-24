@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/23 17:59:42 by dabeloos          #+#    #+#             */
-/*   Updated: 2018/08/23 21:02:29 by dabeloos         ###   ########.fr       */
+/*   Updated: 2018/08/24 09:08:00 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,16 +64,12 @@ int		ft_strlen(char *str)
 	return (i);
 }
 
-int		ft_count_words(char *str, char *charset)
+int		ft_count_words(char *str, char *charset, int n, int check)
 {
-	int	n;
 	int	i;
 	int	j;
-	int	check;
 
-	n = 0;
 	i = 0;
-	check = 0;
 	while (1)
 	{
 		j = 0;
@@ -81,7 +77,7 @@ int		ft_count_words(char *str, char *charset)
 			j++;
 		if (charset[j] == '\0' || (str[i] == '\0' && j == 0))
 		{
-			if (check && i > 0 && !(charset[j] == '\0' && str[i + j] == '\0'))
+			if (check && !(charset[j] == '\0' && str[i + j] == '\0'))
 			{
 				check = 0;
 				n++;
@@ -91,9 +87,8 @@ int		ft_count_words(char *str, char *charset)
 		}
 		else
 			check = 1;
-		if (str[i] == '\0')
+		if (str[i++] == '\0')
 			break ;
-		i++;
 	}
 	return (n);
 }
@@ -106,7 +101,7 @@ char	**ft_split(char *str, char *charset)
 	int		i;
 	int		count;
 
-	count = ft_count_words(str, charset) + 1;
+	count = ft_count_words(str, charset, 0, 0) + 1;
 	result = malloc(sizeof(char*) * (count));
 	i = 0;
 	while (i < count - 1)
