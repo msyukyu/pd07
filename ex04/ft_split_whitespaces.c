@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/21 11:03:01 by dabeloos          #+#    #+#             */
-/*   Updated: 2018/08/21 18:27:16 by dabeloos         ###   ########.fr       */
+/*   Updated: 2018/08/24 09:16:54 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	ft_init_var(int var[3], size_t *l)
 
 char	**ft_add_null(char **result, int size)
 {
-	result[size] = NULL;
+	result[size] = (void*)0;
 	return (result);
 }
 
