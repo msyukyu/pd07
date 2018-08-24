@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/21 08:55:26 by dabeloos          #+#    #+#             */
-/*   Updated: 2018/08/23 14:24:35 by dabeloos         ###   ########.fr       */
+/*   Updated: 2018/08/24 09:13:52 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int		ft_ultimate_range(int **range, int min, int max)
 {
 	int	i;
 
-	if (min >= max)
+	if (min >= max || range == NULL)
 		return (0);
 	*range = malloc(sizeof(int) * ((long)max - (long)min));
 	if (*range == NULL)
