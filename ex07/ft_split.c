@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/23 17:59:42 by dabeloos          #+#    #+#             */
-/*   Updated: 2018/08/24 09:08:00 by dabeloos         ###   ########.fr       */
+/*   Updated: 2018/08/24 09:18:41 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,6 @@ char	**ft_split(char *str, char *charset)
 		}
 		str += length + ft_strlen(charset);
 	}
-	result[i] = NULL;
+	result[i] = (void*)0;
 	return (result);
 }
