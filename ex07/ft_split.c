@@ -6,7 +6,7 @@
 /*   By: dabeloos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/23 17:59:42 by dabeloos          #+#    #+#             */
-/*   Updated: 2018/08/24 09:18:41 by dabeloos         ###   ########.fr       */
+/*   Updated: 2018/08/24 13:37:43 by dabeloos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,18 @@
 
 char	*ft_strstr(char *str, char *to_find)
 {
-	int		i;
+	char	*start_find;
 
 	if (to_find[0] == '\0')
 		return (str);
 	while (*str != '\0')
 	{
-		while (*str != *to_find && *str != '\0')
-			str++;
-		if (*str == *to_find)
-		{
-			i = 0;
-			while (str[i] != '\0' || (str[i] == '\0' && to_find[i] == '\0'))
-			{
-				if (to_find[i] == '\0')
-					return (str);
-				if (to_find[i] == str[i])
-					i++;
-				else
-					break ;
-			}
-			str++;
-		}
+		start_find = to_find;
+		while (*str != *start_find && *start_find != '\0')
+			start_find++;
+		if (*str == *start_find && start_find != '\0')
+			return (str);
+		str++;
 	}
 	return ((void*)0);
 }
@@ -73,19 +63,19 @@ int		ft_count_words(char *str, char *charset, int n, int check)
 	while (1)
 	{
 		j = 0;
-		while (str[i + j] == charset[j] && charset[j] != '\0')
+		while (str[i] != charset[j] && charset[j] != '\0')
 			j++;
-		if (charset[j] == '\0' || (str[i] == '\0' && j == 0))
+		if (charset[j] != '\0')
 		{
-			if (check && !(charset[j] == '\0' && str[i + j] == '\0'))
+			if (check)
 			{
 				check = 0;
 				n++;
 			}
-			if (str[i] != '\0')
-				i = i + j - 1;
 		}
-		else
+		else if (str[i] == '\0' && check)
+			n++;
+		if (charset[j] == '\0')
 			check = 1;
 		if (str[i++] == '\0')
 			break ;
@@ -115,7 +105,7 @@ char	**ft_split(char *str, char *charset)
 			result[i][length] = '\0';
 			i++;
 		}
-		str += length + ft_strlen(charset);
+		str += length + 1;
 	}
 	result[i] = (void*)0;
 	return (result);
